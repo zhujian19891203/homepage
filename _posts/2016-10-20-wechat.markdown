@@ -1,0 +1,14 @@
+---
+layout:     post
+title:      "微信公共号开发记录"
+subtitle:   ""
+date:       2016-10-20
+author:     "Zhu Jian"
+header-img: "img/leetcode-bg.jpg"
+tags:
+    - 微信公共号
+    - Java
+---
+
+### 颜值打分器开发
+哎呀，有点累，明天再写吧！！！
