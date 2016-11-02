@@ -13,10 +13,11 @@ tags:
 ## Battleships in a Board
 
 #### 题目
->Given an 2D board, count how many different battleships are in it. The battleships are represented with `'X'`s, empty slots are represented with `'.'`s. You may assume the following rules:
-*You receive a valid board, made of only battleships or empty slots.
-*Battleships can only be placed horizontally or vertically. In other words, they can only be made of the shape `1xN` (1 row, N columns) or `Nx1` (N rows, 1 column), where N can be of any size.
-*At least one horizontal or vertical cell separates between two battleships - there are no adjacent battleships.
+Given an 2D board, count how many different battleships are in it. The battleships are represented with `'X'`s, empty slots are represented with `'.'`s. You may assume the following rules:
+
+* You receive a valid board, made of only battleships or empty slots.
+* Battleships can only be placed horizontally or vertically. In other words, they can only be made of the shape `1xN` (1 row, N columns) or `Nx1` (N rows, 1 column), where N can be of any size.
+* At least one horizontal or vertical cell separates between two battleships - there are no adjacent battleships.
 
 ##### Example
 ```
@@ -37,12 +38,16 @@ This is an invalid board that you will not receive - as battleships will always 
 ##### Follow up:
 Could you do it in one-pass, using only O(1) extra memory and without modifying the value of the board?
 
-#### 解题思路 
-**关键：**由于条件3的限制，其实每两个战舰之间都是有`'*'`相隔的，只需要统计top-left的`'X'`，并且保证只统计一次即可。  
-**实际操作：**二重循环，若当前元素的值不满足如下三个条件：
+#### 解题思路
+**关键：**  
+由于条件3的限制，其实每两个战舰之间都是有`'*'`相隔的，只需要统计top-left的`'X'`，并且保证只统计一次即可。  
+**实际操作：**  
+二重循环，若当前元素的值不满足如下三个条件：  
+
 * 值为`'.'`  
 * 上方的元素为`'X'`  
 * 左方的元素为`'X'`  
+
 则统计数加1
 
 #### Code
