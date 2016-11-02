@@ -1,0 +1,98 @@
+---
+layout:     post
+title:      "Leetcode 406"
+subtitle:   "Queue Reconstruction by Height"
+date:       2016-11-2
+author:     "Zhu Jian"
+header-img: "img/leetcode-bg.jpg"
+tags:
+    - Leetcode
+    - Algorithm
+---
+
+## Queue Reconstruction by Height
+
+#### 题目
+Suppose you have a random list of people standing in a queue. Each person is described by a pair of integers `(h, k)`, where `h` is the height of the person and `k` is the number of people in front of this person who have a height greater than or equal to `h`. Write an algorithm to reconstruct the queue.
+
+##### Note
+The number of people is less than 1,100.
+
+##### Example
+```
+Input:
+[[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]
+
+Output:
+[[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]
+```
+
+#### 解题思路
+**关键：**  
+
+* 将people数组中h值最大的元素取出来，并根据k值按升序排序，对这些元素按照k值存放入List临时变量中。  
+* 对people数组中的剩余元素重复上述步骤，直至剩余元素为空  
+
+**原理：**  
+从剩余元素中取h值最大的元素其h值必然是比List临时变量中所有元素的h值都小，故其k值就刚好是其在List变量中的位置。
+
+#### Code
+```
+public class Solution {
+    public int[][] reconstructQueue(int[][] people) {
+        int length = people.length;
+
+        List<int[]> resList = new ArrayList<>(length);
+        resList.clear();
+        int[][] resArray = new int[length][2];
+
+        boolean[] flag = new boolean[length];     // boolean默认值：false
+
+        while(true) {
+            int num = -1;
+            List<int[]> list = new ArrayList<>();
+            list.clear();
+            for(int i = 0; i < length; i++) {
+                if(flag[i] == false) {
+                    int[] tmp = people[i];
+                    if(tmp[0] > num) {
+                        num = tmp[0];
+                        list.clear();
+                        list.add(tmp);
+                    }
+                    else if(tmp[0] == num) {
+                        list.add(tmp);
+                    }
+                }
+            }
+
+            if(num == -1)
+                break;
+
+            for(int i = 0; i < length; i++) {
+                if(flag[i] == false && people[i][0] == num) {
+                    flag[i] = true;
+                }
+            }
+
+            Collections.sort(list, new Comparator<int[]>() {
+                @Override
+                public int compare(int[] o1, int[] o2) {
+                    return o1[1] - o2[1];
+                }
+            });
+
+            for(int i = 0; i < list.size(); i++) {
+                int[] tmp = list.get(i);
+                resList.add(tmp[1], tmp);
+            }
+        }
+
+        for(int i = 0; i < resList.size(); i++) {
+            resArray[i] = resList.get(i);
+        }
+
+        return resArray;
+    }
+}
+```
