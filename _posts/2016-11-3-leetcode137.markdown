@@ -1,0 +1,46 @@
+---
+layout:     post
+title:      "Leetcode 137"
+subtitle:   "Single Number II"
+date:       2016-11-3
+author:     "Zhu Jian"
+header-img: "img/leetcode-bg.jpg"
+tags:
+    - Leetcode
+    - Algorithm
+---
+
+## Single Number II
+
+#### 题目
+Given an array of integers, every element appears three times except for one. Find that single one.
+
+##### Note
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+#### 解题思路
+**关键：**  
+整型共32位，对于每一位统计出现1的次数sum，对sum进行模3的操作，将结果放置到相应位置即可
+
+#### Code
+```
+public class Solution {
+    public int singleNumber(int[] nums) {
+        int res = 0;
+
+        for(int i = 0; i < 32; i++) {
+            int sum = 0;
+            for(int j = 0; j < nums.length; j++) {
+                if(((nums[j] >> i) & 1) == 1) {
+                    sum++;
+                }
+            }
+            sum %= 3;
+
+            res |= sum << i;
+        }
+
+        return res;
+    }
+}
+```

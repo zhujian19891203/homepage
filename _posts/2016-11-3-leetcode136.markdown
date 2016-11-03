@@ -1,0 +1,42 @@
+---
+layout:     post
+title:      "Leetcode 136"
+subtitle:   "Single Number"
+date:       2016-11-3
+author:     "Zhu Jian"
+header-img: "img/leetcode-bg.jpg"
+tags:
+    - Leetcode
+    - Algorithm
+---
+
+## Single Number
+
+#### 题目
+Given an array of integers, every element appears twice except for one. Find that single one.
+
+##### Note
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+#### 解题思路
+**关键：**
+
+* X ^ X = 0
+* 0 ^ X = X
+* ^ 满足交换律和结合律
+
+#### Code
+```
+public class Solution {
+    public int singleNumber(int[] nums) {
+        int res = 0;
+        
+        int len = nums.length;
+        for(int i = 0; i < len; i++) {
+            res ^= nums[i];
+        }
+        
+        return res;
+    }
+}
+```
