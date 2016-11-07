@@ -1,0 +1,61 @@
+---
+layout:     post
+title:      "Leetcode 357"
+subtitle:   "Count Numbers with Unique Digits"
+date:       2016-11-4
+author:     "Zhu Jian"
+header-img: "img/leetcode-bg.jpg"
+tags:
+    - Leetcode
+    - Algorithm
+---
+
+## Count Numbers with Unique Digits
+
+#### 题目
+Given a **non-negative** integer n, count all numbers with unique digits, x, where 0 ≤ x < 10^n. 
+
+##### Example
+Given n = 2, return 91. (The answer should be the total numbers in the range of 0 ≤ x < 100, excluding `[11,22,33,44,55,66,77,88,99])`
+
+#### 解题思路
+**直观想法：**编写函数判断一个数是否只包括不重复的数字（利用Map数据结构），然后遍历所有数字进行统计即可，时间复杂度：O(n*10^n)，超时  
+**改进方法：**从排列组合的角度思考  
+
+* 对于n == 0，此时结果是1
+* 对于n > 0，遍历不同位数的情况i
+    * i == 1，结果是10
+    * i > 10，结果是0
+    * i > 1 & i <= 10，结果是9 * 9 * ... * (10 - i + 1)
+
+#### Code
+```
+public class Solution {
+    public int countNumbersWithUniqueDigits(int n) {
+        if(n == 0) {
+            return 1;
+        }
+
+        int sum = 0;
+
+        for(int i = 0; i < n; i++) {
+            if(i == 0) {
+                sum += 10;
+            }
+            else if(i >= 10) {
+                sum += 0;
+            }
+            else {
+                int tmp = 9;
+                for(int j = 1; j < i+1; j++) {
+                    tmp *= (10 - j);
+                }
+                sum += tmp;
+            }
+        }
+
+        return sum;
+    }
+}
+
+```

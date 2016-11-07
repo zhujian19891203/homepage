@@ -1,0 +1,52 @@
+---
+layout:     post
+title:      "Leetcode 268"
+subtitle:   "Missing Number"
+date:       2016-11-7
+author:     "Zhu Jian"
+header-img: "img/leetcode-bg.jpg"
+tags:
+    - Leetcode
+    - Algorithm
+---
+
+## Missing Number
+
+#### 题目
+[Leetcode268: Missing Number](https://leetcode.com/problems/missing-number/)
+
+#### 解题思路
+**方法1：**利用数学等差数列公式计算出假设没有丢失数字的总和，然后对当前数组求和，前者减去后者即为结果  
+**方法2：**利用异或位操作，将假设没有丢失数字的数组的所有元素与当前数组的所有元素做异或操作即为结果
+
+#### Code
+**方法1**  
+
+```
+public class Solution {
+    public int missingNumber(int[] nums) {
+        int len = nums.length;
+        int sum1 = 0;
+        for(int i = 0; i < len; i++) {
+            sum1 += nums[i];
+        }
+        int sum2 = len * (len+1) / 2;
+
+        return sum2 - sum1;
+    }
+}
+```
+**方法2**  
+
+```
+public class Solution {
+    public int missingNumber(int[] nums) {
+        int res = 0;
+        for(int i = 0; i < nums.length; i++) {
+            res ^= (i+1) ^ nums[i];
+        }
+
+        return res;
+    }
+}
+```

@@ -1,0 +1,63 @@
+---
+layout:     post
+title:      "Leetcode 343"
+subtitle:   "Integer Break"
+date:       2016-11-4
+author:     "Zhu Jian"
+header-img: "img/leetcode-bg.jpg"
+tags:
+    - Leetcode
+    - Algorithm
+---
+
+## Integer Break
+
+#### 题目
+Given a positive integer n, break it into the sum of **at least** two positive integers and maximize the product of those integers. Return the maximum product you can get.  
+For example, given n = 2, return 1 (2 = 1 + 1); given n = 10, return 36 (10 = 3 + 3 + 4).
+
+##### Note
+You may assume that n is not less than 2 and not larger than 58.
+
+#### 解题思路
+**递归方式：**  
+
+* 递推关系：对于正整数n（n >= 2），最终都可以分解成若干个2或者3，  
+`return 3*recurFunc(n-3) > 2*recurFunc(n-2) ? 3*recurFunc(n-3) : 2*recurFunc(n-2);`
+* 临界条件：`if(n == 1 || n == 2 || n == 3) return n;`
+* 结果超时（尴尬脸）
+
+**改进方法：**  
+分析了很多实例，当正整数n > 3时，若n - 3 >= 2，则优先分解为3，n = n - 3；否则，若n - 2 >= 2，则分解为2，n = n - 2；重复上述步骤，然后将所有的分解值求积即可。
+
+#### Code
+```
+public class Solution {
+    public int integerBreak(int n) {
+        if(n == 2)
+            return 1;
+        if(n == 3)
+            return 2;
+
+        int res = 1;
+        List<Integer> list = new ArrayList<>();
+        while(n > 3) {
+            if(n - 3 >= 2) {
+                list.add(3);
+                n = n -3;
+            }
+            else if(n - 2 >= 2) {
+                list.add(2);
+                n = n - 2;
+            }
+        }
+
+        res *= n;
+        for(int i = 0; i < list.size(); i++) {
+            res *= list.get(i);
+        }
+
+        return res;
+    }
+}
+```

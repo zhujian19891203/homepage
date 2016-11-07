@@ -1,0 +1,56 @@
+---
+layout:     post
+title:      "Leetcode 41"
+subtitle:   "First Missing Positive"
+date:       2016-11-7
+author:     "Zhu Jian"
+header-img: "img/leetcode-bg.jpg"
+tags:
+    - Leetcode
+    - Algorithm
+---
+
+## First Missing Positive
+
+#### 题目
+[Leetcode41: First Missing Positive](https://leetcode.com/problems/first-missing-positive/)
+
+#### 解题思路
+**关键：**数组的第i个位置存放数字(i+1)，遍历数组首次出现不满足前述条件的数字即为结果  
+PS：该方法也适用Leetcode268: Missing Number
+
+#### Code
+```
+public class Solution {
+    public int firstMissingPositive(int[] nums) {
+        int res = 1;
+
+        int i = 0;
+        while(i < nums.length) {
+            if(nums[i] != (i+1) && nums[i] >= 1 && nums[i] <= nums.length && nums[i] != nums[nums[i] - 1]) {
+                int tmp = nums[nums[i] - 1];
+                nums[nums[i] - 1] = nums[i];
+                nums[i] = tmp;
+            }
+            else {
+                i++;
+            }
+        }
+
+        i = 0;
+        while(i < nums.length) {
+            if(nums[i] != (i+1)) {
+                res = i + 1;
+                break;
+            }
+            i++;
+        }
+        if(i == nums.length) {
+            res = i + 1;
+        }
+
+        return res;
+    }
+}
+
+```

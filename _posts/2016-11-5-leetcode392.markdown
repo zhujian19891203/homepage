@@ -1,0 +1,64 @@
+---
+layout:     post
+title:      "Leetcode 392"
+subtitle:   "Is Subsequence"
+date:       2016-11-5
+author:     "Zhu Jian"
+header-img: "img/leetcode-bg.jpg"
+tags:
+    - Leetcode
+    - Algorithm
+---
+
+## Is Subsequence
+
+#### 题目
+Given a string **s** and a string **t**, check if **s** is subsequence of **t**.  
+
+You may assume that there is only lower case English letters in both **s** and **t**. **t** is potentially a very long (length ~= 500,000) string, and **s** is a short string (<=100).  
+
+A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, `"ace"` is a subsequence of `"abcde"` while `"aec"` is not).
+
+##### Example 1
+**s** = `"abc"`, **t** = `"ahbgdc"`  
+Return `true`.
+
+##### Example 2
+**s** = `"axc"`, **t** = `"ahbgdc"`  
+Return `false`.
+
+#### 解题思路
+**关键：**  
+
+* 该题目比较简单，使用两个索引idx1和idx2分别指示字符串s和t的当前扫描位置
+* 若s.charAt(idx1) == t.charAt(idx2)，则idx1++，idx2++；否则，idx2++
+* 若idx1 == s.length()，则返回true；否则，返回false
+
+#### Code
+```
+public class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int len_s = s.length();
+        int len_t = t.length();
+
+        int idx1 = 0;
+        int idx2 = 0;
+        while(idx1 < len_s && idx2 < len_t) {
+            if(s.charAt(idx1) == t.charAt(idx2)) {
+                idx1++;
+                idx2++;
+            }
+            else {
+                idx2++;
+            }
+        }
+
+        if(idx1 == len_s) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
+```
