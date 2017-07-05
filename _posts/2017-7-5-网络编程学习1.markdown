@@ -1,0 +1,22 @@
+---
+layout:     post
+title:      "网络编程学习1"
+subtitle:   "了解阶段"
+date:       2017-7-4
+author:     "Zhu Jian"
+header-img: "img/network-programming-bg.jpg"
+tags:
+    - Network Programming
+    - Linux
+---
+
+#### 目前进度 ####  
+阅读《Beej's Guide to Network Programming》，看了20多页，主要是基础知识的回忆：
+
+* OSI七层模型  
+* TCP/UDP  
+* IP(IPv4; IPv6), Port  
+* Byte Order  
+* Socket分类(Stream Socket; Datagram Socket)  
+
+并未涉及编程实践，下面章节将进行具体的Socket编程
